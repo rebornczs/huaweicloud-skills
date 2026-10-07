@@ -9,7 +9,9 @@ description: >
   Triggers include: data processing task management, data evaluation task management, task
   status polling, log retrieval for troubleshooting, output data preview, algorithm discovery,
   task pipeline orchestration, batch task management, failure diagnosis, dataset, proc-tasks,
-  eval-tasks.
+  eval-tasks. Also prepare LeRobot manifest.yaml from a local ROS2 bag through terminal
+  conversation or the bag2manifest Web workbench. Triggers include bag2manifest,
+  ROS2 bag转LeRobot配置, 对话生成manifest.yaml, 启动bag2manifest Web服务, 话题映射.
 tags:
   - huawei-cloud-cloudrobo
   - dataset
@@ -53,15 +55,25 @@ Agent / LLM
               /v1/data-eng/eval-tasks/*
 ```
 
-All operations target the `cloudrobo-service` backend and require a `workspace_id` (default
-workspace is used unless `--workspace-id` overrides it). Algorithm and dataset discovery is a
+CloudRobo task operations target the `cloudrobo-service` backend and require a `workspace_id`
+(default workspace is used unless `--workspace-id` overrides it). Algorithm and dataset discovery is a
 cross-package operation that calls the `cloudrobo-asset-manager` service via `cloudrobo asset`.
 
 ## Prerequisites
 
 See `references/cli-installation-guide.md` for CLI installation, AK/SK authentication, and
-workspace configuration. All dataset operations require a valid `workspace_id` (default or
+workspace configuration. CloudRobo task operations require a valid `workspace_id` (default or
 explicit `--workspace-id`).
+
+### Local ROS bag manifest preparation
+
+For local bag profiling or LeRobot `manifest.yaml` preparation, read
+[Bag to manifest](references/bag2manifest.md). It covers two modes: terminal conversation
+using `scripts/bag2manifest/generate_manifest.py`, and a local Web workbench using
+`scripts/bag2manifest/start_web.py`. This stage prepares conversion configuration locally;
+it does not create a CloudRobo task or require a workspace. Generate ROS Manifest 2.0
+according to [ROS manifest contract](references/ros-manifest-2.0.md). Follow the user’s
+automatic or interactive decision preference; Web uses a shared field editor and sampled previews.
 
 ## Workflow
 
@@ -378,6 +390,8 @@ evaluation algorithms.
 
 ## Reference Documents
 
+- [ROS Manifest 2.0](references/ros-manifest-2.0.md) — ROS-only field contract, mixed actions, and validation rules
+- [Bag to Manifest](references/bag2manifest.md) — Local ROS bag profiling, terminal conversation, and Web workbench
 - [CLI Installation Guide](references/cli-installation-guide.md) — cloudrobo CLI installation and configuration
 - [IAM Policies](references/iam-policies.md) — Least-privilege credential model
 - [Verification Method](references/verification-method.md) — Verification method details
